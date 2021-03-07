@@ -125,7 +125,6 @@ public class UI_Manager : MonoBehaviour
             if (highScores[index] < newScore)
             {
                 highScores[index] = newScore;
-                
                 return;
             }
         }
@@ -143,12 +142,9 @@ public class UI_Manager : MonoBehaviour
             scoreString += "0";
         }
 
-        if (scoreValue > highScores[0])
-        {
-            UpdateHighScores(scoreValue);
-            UpdateGameBoard(scoreValue);
-        }
-        
+        UpdateHighScores(scoreValue);
+        // UpdateGameBoard(scoreValue);
+ 
         scoreString += scoreValue.ToString();
         currentScore.SetText("Score:\n" + scoreString);
     }

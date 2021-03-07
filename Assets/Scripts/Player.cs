@@ -46,11 +46,10 @@ public class Player : MonoBehaviour
       }
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-      if (other.gameObject.CompareTag("Enemy"))
-      {
-        // bad things happen
-      }
+      
+        Debug.Log("OUCH");
+        GameOver.isPlayerDead = true;
     }
 }
