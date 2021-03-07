@@ -120,7 +120,7 @@ public class UI_Manager : MonoBehaviour
     public void UpdateCurrentScore(int scoreIn)
     {
         var scoreTextCurrent = currentScore.GetParsedText();
-        var scoreString = scoreTextCurrent.Replace("Score", "");
+        var scoreString = scoreTextCurrent.Replace("Score:\n", "");
         var scoreValue = int.Parse(scoreString) + scoreIn; // error here on more than 1 iteration
         var tempScoreLength = 4 - scoreValue.ToString().Length;
         scoreString = "";
@@ -129,7 +129,7 @@ public class UI_Manager : MonoBehaviour
             scoreString += "0";
         }
 
-        // UpdateHighScores(scoreValue);
+        UpdateHighScores(scoreValue);
         scoreString += scoreValue.ToString();
         currentScore.SetText("Score:\n" + scoreString);
     }
