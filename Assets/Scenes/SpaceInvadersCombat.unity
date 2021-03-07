@@ -316,6 +316,7 @@ MonoBehaviour:
   gameOverNeg: {fileID: 2018084081}
   gameOverPos: {fileID: 523866922}
   restartMesg: {fileID: 2042270652}
+  gm: {fileID: 0}
 --- !u!1 &251340731
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,18 +912,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e9ff07b0aad404d8290799569b86c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
-  shottingOffset: {fileID: 0}
-  bulletDeath: 0
-  speed: 0
-  fireRate: 0.997
-  maxBound: 0
-  minBound: 0
+  bullet: {fileID: 2457785739244962049, guid: d4511b14daaa37c468a74ed386b2583f, type: 3}
+  bulletDeath: 2
+  speed: 0.5
+  fireRate: 0.99
+  maxBound: 10
+  minBound: -10
+  goalBound: -3
   m_Enemy_1: {fileID: 9139441810614437167, guid: 2c615b7f56e9da448b8b6406e707fc87, type: 3}
   m_Enemy_2: {fileID: 7527921516308563763, guid: 44f6a95a7e6b00f45b216a58b9d5b51e, type: 3}
   m_Enemy_3: {fileID: 7483517710255911465, guid: c3b77266ea0668e4289e92aa866a25ed, type: 3}
   m_Enemy_4: {fileID: 6576906063948436696, guid: 0f9540bffa6be5e40a21cb02e7815a52, type: 3}
-  numberOfAliens: 0
+  tempRepeatSpeedChecker: 0
 --- !u!4 &823684664
 Transform:
   m_ObjectHideFlags: 0

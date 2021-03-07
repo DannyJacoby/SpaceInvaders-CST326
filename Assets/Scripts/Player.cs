@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class Player : MonoBehaviour
   public GameObject bullet;
   public Transform shottingOffset;
   public float bulletDeath;
+  
   private Transform player;
   public float speed;
   public float maxBound, minBound;
@@ -14,6 +16,7 @@ public class Player : MonoBehaviour
   void Start()
   {
     player = GetComponent<Transform>();
+    
   }
   
     // Update is called once per frame
@@ -35,10 +38,19 @@ public class Player : MonoBehaviour
       if (Input.GetKeyDown(KeyCode.Space))
       {
         GameObject shot = Instantiate(bullet, shottingOffset.position, Quaternion.identity);
+        shot.GetComponent<Bullet>().amPlayerBullet = true;
         // Debug.Log("Bang!");
 
         Destroy(shot, bulletDeath);
 
+      }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+      if (other.gameObject.CompareTag("Enemy"))
+      {
+        // bad things happen
       }
     }
 }

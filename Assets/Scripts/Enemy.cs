@@ -25,6 +25,9 @@ public class Enemy : MonoBehaviour
             // Debug.Log("Ouch!");
             m_UIManager.UpdateCurrentScore(myValue);
             Destroy(gameObject);
+            MotherShip.RepeatSpeed -= 0.1f;
         }
     }
+    
+    
 }

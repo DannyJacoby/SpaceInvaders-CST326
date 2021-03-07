@@ -11,17 +11,21 @@ using UnityEngine.UI;
 public class UI_Manager : MonoBehaviour
 {
     public string sceneToLoad;
-    private string m_AllHighScores = "High Scores:\n";
-    private string scoreFileName = "./Assets/Scores/HighScores.txt";
+    
+    private int[] highScores = new int[5];
+    
+    private const string ScoreFileName = "./Assets/Scores/HighScores.txt";
     public TextMeshProUGUI highScoreBoard;
     public TextMeshProUGUI currentScore;
+    
     public bool amIOpening;
 
     void Awake()
     {
-        if (!File.Exists(scoreFileName))
+        if (!File.Exists(ScoreFileName) && amIOpening)
         {
-            File.WriteAllText(scoreFileName, "High Scores:\n");
+            File.WriteAllText(ScoreFileName, "0000");
+            highScores[0] = 0;
         }
     }
     
@@ -31,11 +35,14 @@ public class UI_Manager : MonoBehaviour
         ParseScoresFile();
         if (amIOpening)
         {
-            UpdateBoard();
+            UpdateMainBoard();
+            GameOver.allEnemiesDead = false;
+            GameOver.isPlayerDead = false;
+            Time.timeScale = 1;
         }
         else
         {
-            UpdateMiniBoard(m_AllHighScores.Substring(13, 5));
+            UpdateGameBoard(highScores[0]);
         }
         
     }
@@ -59,18 +66,17 @@ public class UI_Manager : MonoBehaviour
         String line;
         try
         {
-            StreamReader sr = new StreamReader(scoreFileName);
+            StreamReader sr = new StreamReader(ScoreFileName);
             line = sr.ReadLine();
-            // int index = 0;
+            int index = 0;
             while (line != null)
             {
-                m_AllHighScores += (line + "\n");
-                // Debug.Log(line);
-                // Debug.Log(highScoreArray[index]);
+                highScores[index] = int.Parse(line);
                 line = sr.ReadLine();
+                index++;
             }
-
             sr.Close();
+            SortScores();
         }
         catch (Exception e)
         {
@@ -78,50 +84,58 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    private void UpdateBoard()
+    private void UpdateMainBoard()
     {
-        // StringBuilder sb = new StringBuilder("High Scores:\n");
-        highScoreBoard.SetText(m_AllHighScores);
+        SortScores();
+        StringBuilder sb = new StringBuilder("High Scores:\n");
+        var index = 1;
+        foreach (var score in highScores)
+        {
+            var tempScoreLength = 4 - score.ToString().Length;
+            var scoreString = index.ToString() + " - ";
+            for (var i = 0; i < tempScoreLength; i++)
+            {
+                scoreString += "0";
+            }
+            scoreString += score.ToString();
+            sb.AppendLine(scoreString);
+            index++;
+        }
+        highScoreBoard.SetText(sb);
     }
 
-    private void UpdateMiniBoard(string newScore)
+    private void UpdateGameBoard(int newScore)
     {
-        highScoreBoard.SetText("High Score:\n" + newScore);
-    }
-
-    private void UpdateHighScoreText(string newScore)
-    {
-        var oldHighScoreString = m_AllHighScores.Replace("High Score:\n", "");
-        var newHighScoreString = "High Score:\n" + newScore.ToString() + "\n" + oldHighScoreString;
-        m_AllHighScores = newHighScoreString;
-        File.WriteAllText(scoreFileName, m_AllHighScores.Replace("High Score:\n", ""));
-    }
-    
-    private void UpdateHighScores(int newScore)
-    {
-        var highScoreTextCurrent = highScoreBoard.GetParsedText();
-        var highScoreString = highScoreTextCurrent.Replace("High Score:", "");
-        var scoreValue = int.Parse(highScoreString);
-
-        if (scoreValue >= newScore) return;
-        
         var tempScoreLength = 4 - newScore.ToString().Length;
-        highScoreString = "";
+        var scoreString = "";
         for (var i = 0; i < tempScoreLength; i++)
         {
-            highScoreString += "0";
+            scoreString += "0";
         }
-        
-        highScoreString += newScore.ToString();
-        UpdateMiniBoard(highScoreString);
-        UpdateHighScoreText(highScoreString);
+        scoreString += newScore.ToString();
+        highScoreBoard.SetText("High Score:\n" + scoreString);
+    }
+
+    private void UpdateHighScores(int newScore)
+    {
+        // TODO bug here, won't reorganize scores so oof
+        SortScores();
+        for (var index = 0; index < highScores.Length; index++)
+        {
+            if (highScores[index] < newScore)
+            {
+                highScores[index] = newScore;
+                
+                return;
+            }
+        }
     }
 
     public void UpdateCurrentScore(int scoreIn)
     {
         var scoreTextCurrent = currentScore.GetParsedText();
         var scoreString = scoreTextCurrent.Replace("Score:\n", "");
-        var scoreValue = int.Parse(scoreString) + scoreIn; // error here on more than 1 iteration
+        var scoreValue = int.Parse(scoreString) + scoreIn; 
         var tempScoreLength = 4 - scoreValue.ToString().Length;
         scoreString = "";
         for (var i = 0; i < tempScoreLength; i++)
@@ -129,8 +143,31 @@ public class UI_Manager : MonoBehaviour
             scoreString += "0";
         }
 
-        UpdateHighScores(scoreValue);
+        if (scoreValue > highScores[0])
+        {
+            UpdateHighScores(scoreValue);
+            UpdateGameBoard(scoreValue);
+        }
+        
         scoreString += scoreValue.ToString();
         currentScore.SetText("Score:\n" + scoreString);
+    }
+
+    private void SortScores()
+    {
+        Array.Sort(highScores);
+        Array.Reverse(highScores);
+    }
+
+    public void UpdateHighScoresFile()
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (var score in highScores)
+        {
+            sb.AppendLine(score.ToString());
+        }
+        File.WriteAllText(ScoreFileName, sb.ToString());
+        ParseScoresFile();
+        UpdateMainBoard();
     }
 }
