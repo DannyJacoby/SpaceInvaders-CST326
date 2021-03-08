@@ -12,7 +12,8 @@ public class UI_Manager : MonoBehaviour
 {
     public string sceneToLoad;
     
-    private int[] highScores = new int[5];
+    private int[] highScores = {0,0,0,0,0};
+    private int currentScoreValue = 0;
     
     private const string ScoreFileName = "./Assets/Scores/HighScores.txt";
     public TextMeshProUGUI highScoreBoard;
@@ -24,7 +25,7 @@ public class UI_Manager : MonoBehaviour
     {
         if (!File.Exists(ScoreFileName) && amIOpening)
         {
-            File.WriteAllText(ScoreFileName, "0000");
+            File.WriteAllText(ScoreFileName, "0");
             highScores[0] = 0;
         }
     }
@@ -71,7 +72,7 @@ public class UI_Manager : MonoBehaviour
             int index = 0;
             while (line != null)
             {
-                highScores[index] = int.Parse(line);
+                highScores[index] = int.Parse(line); // ToDo Error probably here
                 line = sr.ReadLine();
                 index++;
             }
@@ -116,8 +117,9 @@ public class UI_Manager : MonoBehaviour
         highScoreBoard.SetText("High Score:\n" + scoreString);
     }
 
-    private void UpdateHighScores(int newScore)
+    private void UpdateHighScores()
     {
+        var newScore = currentScoreValue;
         // TODO bug here, won't reorganize scores so oof
         SortScores();
         for (var index = 0; index < highScores.Length; index++)
@@ -127,6 +129,20 @@ public class UI_Manager : MonoBehaviour
                 var temp = highScores[index];
                 highScores[index] = newScore;
                 newScore = temp;
+                break;
+            }
+        }
+
+        if (newScore != 0)
+        {
+            for (var index = 0; index < highScores.Length; index++)
+            {
+                if (highScores[index] < newScore)
+                {
+                    var temp = highScores[index];
+                    highScores[index] = newScore;
+                    newScore = temp;
+                }
             }
         }
     }
@@ -143,7 +159,8 @@ public class UI_Manager : MonoBehaviour
             scoreString += "0";
         }
 
-        UpdateHighScores(scoreValue);
+        currentScoreValue = scoreValue;
+        // UpdateHighScores(scoreValue);
         // UpdateGameBoard(scoreValue);
 
         scoreString += scoreValue.ToString();
@@ -152,6 +169,7 @@ public class UI_Manager : MonoBehaviour
 
     public void UpdateHighScoresFile()
     {
+        UpdateHighScores();
         StringBuilder sb = new StringBuilder();
         foreach (var score in highScores)
         {
@@ -161,7 +179,7 @@ public class UI_Manager : MonoBehaviour
         ParseScoresFile();
         UpdateMainBoard();
     }
-    
+
     private void SortScores()
     {
         Array.Sort(highScores);
