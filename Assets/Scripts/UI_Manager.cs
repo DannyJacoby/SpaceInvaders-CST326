@@ -124,8 +124,9 @@ public class UI_Manager : MonoBehaviour
         {
             if (highScores[index] < newScore)
             {
+                var temp = highScores[index];
                 highScores[index] = newScore;
-                return;
+                newScore = temp;
             }
         }
     }
@@ -134,7 +135,7 @@ public class UI_Manager : MonoBehaviour
     {
         var scoreTextCurrent = currentScore.GetParsedText();
         var scoreString = scoreTextCurrent.Replace("Score:\n", "");
-        var scoreValue = int.Parse(scoreString) + scoreIn; 
+        var scoreValue = int.Parse(scoreString) + scoreIn;
         var tempScoreLength = 4 - scoreValue.ToString().Length;
         scoreString = "";
         for (var i = 0; i < tempScoreLength; i++)
@@ -144,15 +145,9 @@ public class UI_Manager : MonoBehaviour
 
         UpdateHighScores(scoreValue);
         // UpdateGameBoard(scoreValue);
- 
+
         scoreString += scoreValue.ToString();
         currentScore.SetText("Score:\n" + scoreString);
-    }
-
-    private void SortScores()
-    {
-        Array.Sort(highScores);
-        Array.Reverse(highScores);
     }
 
     public void UpdateHighScoresFile()
@@ -166,4 +161,12 @@ public class UI_Manager : MonoBehaviour
         ParseScoresFile();
         UpdateMainBoard();
     }
+    
+    private void SortScores()
+    {
+        Array.Sort(highScores);
+        Array.Reverse(highScores);
+    }
+    
+    
 }

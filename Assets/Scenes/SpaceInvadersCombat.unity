@@ -915,7 +915,7 @@ MonoBehaviour:
   bullet: {fileID: 2457785739244962049, guid: d4511b14daaa37c468a74ed386b2583f, type: 3}
   bulletDeath: 2
   speed: 0.5
-  fireRate: 0.99
+  fireRate: 0.9
   maxBound: 10
   minBound: -10
   goalBound: -3
