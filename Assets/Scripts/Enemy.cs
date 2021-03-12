@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     public int myValue;
     private GameObject gm;
     private UI_Manager m_UIManager;
+
+    public AudioClip deathSound;
     
     void Awake()
     {

@@ -152,8 +152,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796aad014e2107342a60ed88af81c745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 2457785739244962049, guid: d4511b14daaa37c468a74ed386b2583f, type: 3}
-  shottingOffset: {fileID: 0}
-  bulletDeath: 0
-  fireRate: 0
   myValue: 100
+  deathSound: {fileID: 8300000, guid: dfb143d0b24c9c04dac7a42eec3ebc7d, type: 3}

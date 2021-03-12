@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
   public float speed;
   public float maxBound, minBound;
 
+  public AudioClip deathSound;
+  public AudioClip firingSound;
+  
   void Start()
   {
     player = GetComponent<Transform>();

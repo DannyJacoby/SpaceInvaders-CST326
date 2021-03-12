@@ -1,8 +1,0 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Blank : MonoBehaviour
-{
-    // Exist so I don't delete the scores directory on accident
-}

@@ -18,6 +18,8 @@ public class MotherShip : MonoBehaviour
     public GameObject m_Enemy_3;
     public GameObject m_Enemy_4;
 
+    public AudioClip firingSound;
+    
     // public int numberOfAliens = 4;
     // private int numberOfAliensLeft;
     

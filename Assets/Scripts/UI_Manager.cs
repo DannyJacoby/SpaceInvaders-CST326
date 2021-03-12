@@ -8,6 +8,9 @@ using System.IO;
 using System.Text;
 using UnityEngine.UI;
 
+
+// TODO THIS WORKS FOR FORMAT DIPSHIT String.Format("{0:0000}", score)
+
 public class UI_Manager : MonoBehaviour
 {
     public string sceneToLoad;
@@ -58,7 +61,8 @@ public class UI_Manager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) && !amIOpening)
         {
-            SceneManager.LoadScene(sceneToLoad);
+            Credits._timerIsRunning = true;
+            SceneManager.LoadScene("SpaceInvadersCredits");
         }
     }
     
@@ -185,6 +189,15 @@ public class UI_Manager : MonoBehaviour
         Array.Sort(highScores);
         Array.Reverse(highScores);
     }
-    
+
+    public void UponResult()
+    {
+        UpdateHighScoresFile();
+    }
+
+    private void MovingOnHome()
+    {
+        SceneManager.LoadScene("SpaceInvadersUI");
+    }
     
 }

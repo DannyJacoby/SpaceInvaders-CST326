@@ -10,6 +10,7 @@ public class GameOver : MonoBehaviour
     public TextMeshProUGUI gameOverNeg;
     public TextMeshProUGUI gameOverPos;
     public TextMeshProUGUI restartMesg;
+    public string currentScene;
 
     public GameObject gm;
     private UI_Manager UIManager;
@@ -34,8 +35,9 @@ public class GameOver : MonoBehaviour
             gameOverNeg.enabled = true;
             restartMesg.color = Color.red;
             restartMesg.enabled = true;
-            UIManager.UpdateHighScoresFile();
+            UIManager.UponResult();
         }
+        
         if (allEnemiesDead)
         {
             Time.timeScale = 0;
@@ -43,7 +45,7 @@ public class GameOver : MonoBehaviour
             gameOverPos.enabled = true;
             restartMesg.color = Color.green;
             restartMesg.enabled = true;
-            UIManager.UpdateHighScoresFile();
+            UIManager.UponResult();
         }
 
     }

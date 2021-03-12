@@ -129,6 +129,8 @@ MonoBehaviour:
   speed: 0
   maxBound: 0
   minBound: 0
+  deathSound: {fileID: 8300000, guid: c67bbf4ffab05254b96a08390e2991a1, type: 3}
+  firingSound: {fileID: 8300000, guid: ff3df1723e24d774b9e43d9fd960cf46, type: 3}
 --- !u!1 &2067945345245261543
 GameObject:
   m_ObjectHideFlags: 0
