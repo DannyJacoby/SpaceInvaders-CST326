@@ -7,16 +7,22 @@ using UnityEngine.EventSystems;
 
 public class Enemy : MonoBehaviour
 {
+    public bool amINotInScene = false;
     public int myValue;
     private GameObject gm;
     private UI_Manager m_UIManager;
 
+    private AudioSource _audioSource;
+    
     public AudioClip deathSound;
     
     void Awake()
     {
-        gm = GameObject.FindWithTag("UI_Manager");
-        m_UIManager = gm.GetComponent<UI_Manager>();
+        _audioSource = GetComponent<AudioSource>();
+        if (!amINotInScene)
+        {
+            m_UIManager = gameObject.GetComponentInParent<UI_Manager>();
+        }
     }
 
     // Start is called before the first frame update
@@ -24,12 +30,26 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            PlaySound(deathSound);
             // Debug.Log("Ouch!");
             m_UIManager.UpdateCurrentScore(myValue);
-            Destroy(gameObject);
             MotherShip.RepeatSpeed -= 0.1f;
+            Destroy(gameObject);
         }
     }
     
+    private void PlaySound(AudioClip soundClip)
+    {
+        _audioSource.clip = soundClip;
+        _audioSource.Play();
+        PauseGame(soundClip.length);
+    }
     
+    public void PauseGame(float pauseTime)
+    {
+        StartCoroutine(GamePauser(pauseTime));
+    }
+    public IEnumerator GamePauser(float pauseTime){
+        yield return new WaitForSeconds (pauseTime);
+    }
 }

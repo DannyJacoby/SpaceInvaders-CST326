@@ -9,16 +9,35 @@ public class Credits : MonoBehaviour
     public float timeRemaining;
     public float totalTime = 5f;
     public static bool _timerIsRunning;
+
+    public static bool result;
+    
+    private AudioSource _audioSource;
+    
+    public AudioClip winSound;
+    public AudioClip loseSound;
     
     // Start is called before the first frame update
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
+        
         timeRemaining = totalTime;
         _timerIsRunning = true;
     }
 
     void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
+        
+        if (result)
+        {
+            PlaySound(winSound);   
+        }
+        else
+        {
+            PlaySound(loseSound);
+        }
         timeRemaining = totalTime;
         _timerIsRunning = true;
     }
@@ -43,6 +62,22 @@ public class Credits : MonoBehaviour
         {
             SceneManager.LoadScene("SpaceInvadersUI");
         }
+    }
+    
+    private void PlaySound(AudioClip soundClip)
+    {
+        _audioSource.clip = soundClip;
+        _audioSource.Play();
+        PauseGame(soundClip.length);
+        // yield return new WaitForSeconds(soundClip.length);
+    }
+    
+    public void PauseGame(float pauseTime)
+    {
+        StartCoroutine(GamePauser(pauseTime));
+    }
+    public IEnumerator GamePauser(float pauseTime){
+        yield return new WaitForSeconds (pauseTime);
     }
     
     

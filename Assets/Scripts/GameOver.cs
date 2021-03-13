@@ -10,10 +10,10 @@ public class GameOver : MonoBehaviour
     public TextMeshProUGUI gameOverNeg;
     public TextMeshProUGUI gameOverPos;
     public TextMeshProUGUI restartMesg;
-    public string currentScene;
-
-    public GameObject gm;
+    
+    private GameObject gm;
     private UI_Manager UIManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +30,7 @@ public class GameOver : MonoBehaviour
     {
         if (isPlayerDead)
         {
+            Credits.result = false;
             Time.timeScale = 0;
             gameOverNeg.color = Color.red;
             gameOverNeg.enabled = true;
@@ -40,6 +41,7 @@ public class GameOver : MonoBehaviour
         
         if (allEnemiesDead)
         {
+            Credits.result = true;
             Time.timeScale = 0;
             gameOverPos.color = Color.green;
             gameOverPos.enabled = true;
@@ -49,5 +51,5 @@ public class GameOver : MonoBehaviour
         }
 
     }
-    
+
 }
