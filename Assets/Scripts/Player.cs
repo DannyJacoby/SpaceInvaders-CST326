@@ -17,9 +17,11 @@ public class Player : MonoBehaviour
   public AudioClip firingSound;
 
   private AudioSource _audioSource;
+  private Animator m_Animator;
   
   void Awake()
   {
+    m_Animator = GetComponent<Animator>();
     _audioSource = GetComponent<AudioSource>();
   }
   
@@ -31,7 +33,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
   void Update()
   {
-
     // Bounds Binding
     float h = Input.GetAxis("Horizontal");
     if (player.position.x < minBound && h < 0)
@@ -58,9 +59,12 @@ public class Player : MonoBehaviour
 
   private void OnCollisionEnter2D(Collision2D collision)
   {
+      m_Animator.SetTrigger("Death");
+      PauseGame(1.0f);
       PlaySound(deathSound);
-      Debug.Log("OUCH");
+      // Debug.Log("OUCH");
       GameOver.isPlayerDead = true;
+      
   }
   
   private void PlaySound(AudioClip soundClip)

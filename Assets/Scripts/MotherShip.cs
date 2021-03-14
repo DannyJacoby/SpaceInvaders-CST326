@@ -77,16 +77,14 @@ public class MotherShip : MonoBehaviour
 
         if (tempRepeatSpeedChecker != RepeatSpeed && enemyHolder.childCount != 0)
         {
+            if (RepeatSpeed <= 0.1f)
+            {
+                RepeatSpeed = 0.1f;
+            }
             CancelInvoke();
             InvokeRepeating("MoveEnemy", 0.1f, RepeatSpeed);
             tempRepeatSpeedChecker = RepeatSpeed;
         }
-        
-        // if (enemyHolder.childCount == 1)
-        // {
-        //     CancelInvoke();
-        //     InvokeRepeating("MoveEnemy", 0.1f, repeatSpeed);
-        // }
 
         if (enemyHolder.childCount == 0)
         {

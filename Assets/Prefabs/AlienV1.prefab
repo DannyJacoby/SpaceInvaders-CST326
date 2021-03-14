@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8925915513159097031}
   - component: {fileID: 6257577561856617356}
   - component: {fileID: -8814089892557891794}
+  - component: {fileID: 6850194492742399148}
   m_Layer: 0
   m_Name: AlienV1
   m_TagString: Untagged
@@ -126,6 +127,7 @@ MonoBehaviour:
   amINotInScene: 0
   myValue: 10
   deathSound: {fileID: 8300000, guid: b024f2d5cfa03e7429a41694469e74d8, type: 3}
+  explosion: {fileID: 683692256393378502, guid: ca0ed1030d097ba48b208e363c2f63ce, type: 3}
 --- !u!82 &-8814089892557891794
 AudioSource:
   m_ObjectHideFlags: 0
@@ -222,3 +224,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &6850194492742399148
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2442200234278176763}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 16d16a598aa26a6409619d8a229eac91, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

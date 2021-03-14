@@ -45,11 +45,11 @@ public class Credits : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(timeRemaining + " - " + Time.deltaTime);
+        // Debug.Log(timeRemaining + " - " + Time.deltaTime);
         if (timeRemaining > 0 && _timerIsRunning)
         {
             timeRemaining -= (Time.deltaTime + 0.1f);
-            Debug.Log("TIME " + Math.Floor(timeRemaining));
+            // Debug.Log("TIME " + Math.Floor(timeRemaining));
             
         }
         else if(_timerIsRunning)

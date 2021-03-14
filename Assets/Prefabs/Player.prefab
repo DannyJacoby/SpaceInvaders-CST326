@@ -126,10 +126,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 2457785739244962049, guid: d4511b14daaa37c468a74ed386b2583f, type: 3}
   shottingOffset: {fileID: 8125335893176967482}
-  bulletDeath: 0
-  speed: 0
-  maxBound: 0
-  minBound: 0
+  bulletDeath: 2
+  speed: 0.1
+  maxBound: 10
+  minBound: -10
   deathSound: {fileID: 8300000, guid: 19397eac57951a8429b00b523beec885, type: 3}
   firingSound: {fileID: 8300000, guid: ff3df1723e24d774b9e43d9fd960cf46, type: 3}
 --- !u!82 &647865215538253070

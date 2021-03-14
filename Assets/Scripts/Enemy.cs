@@ -13,15 +13,18 @@ public class Enemy : MonoBehaviour
     private UI_Manager m_UIManager;
 
     private AudioSource _audioSource;
+    private Animator m_Animator;
     
     public AudioClip deathSound;
     
     void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        m_Animator = GetComponent<Animator>();
         if (!amINotInScene)
         {
-            m_UIManager = gameObject.GetComponentInParent<UI_Manager>();
+            gm = GameObject.FindWithTag("UI_Manager");
+            m_UIManager = gm.GetComponent<UI_Manager>();
         }
     }
 
@@ -30,11 +33,12 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            m_Animator.SetTrigger("Dead");
             PlaySound(deathSound);
             // Debug.Log("Ouch!");
             m_UIManager.UpdateCurrentScore(myValue);
             MotherShip.RepeatSpeed -= 0.1f;
-            Destroy(gameObject);
+            Destroy(gameObject, 0.1f);
         }
     }
     
@@ -49,7 +53,8 @@ public class Enemy : MonoBehaviour
     {
         StartCoroutine(GamePauser(pauseTime));
     }
-    public IEnumerator GamePauser(float pauseTime){
+    public IEnumerator GamePauser(float pauseTime)
+    {
         yield return new WaitForSeconds (pauseTime);
     }
 }

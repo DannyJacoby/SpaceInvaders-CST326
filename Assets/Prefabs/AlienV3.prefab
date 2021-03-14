@@ -146,6 +146,7 @@ MonoBehaviour:
   amINotInScene: 0
   myValue: 50
   deathSound: {fileID: 8300000, guid: b024f2d5cfa03e7429a41694469e74d8, type: 3}
+  explosion: {fileID: 683692256393378502, guid: ca0ed1030d097ba48b208e363c2f63ce, type: 3}
 --- !u!82 &8591348276762504980
 AudioSource:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class UI_Manager : MonoBehaviour
     {
         if (!File.Exists(ScoreFileName) && amIOpening)
         {
-            File.WriteAllText(ScoreFileName, "0");
+            File.WriteAllText(ScoreFileName, "0\n0\n0\n0\n0");
             highScores[0] = 0;
         }
     }
